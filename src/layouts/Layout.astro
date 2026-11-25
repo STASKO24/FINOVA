@@ -1,0 +1,23 @@
+---
+import '../styles/global.css';
+import fontUrl from '../assets/PPNeueMontreal-Regular.ttf?url';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="World-class corporate services in Singapore and Hong Kong. FINOVA Group — prototype." />
+    <meta name="theme-color" content="#22110c" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href={`${base}/images/finova-logo.png`} type="image/png" />
+    <link rel="preload" href={fontUrl} as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href={`${base}/images/slide-01.webp`} as="image" fetchpriority="high" />
+    <title>FINOVA Group — World-Class Corporate Services</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="site-shell"><slot /></div>
+  </body>
+</html>
