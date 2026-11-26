@@ -12,7 +12,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <meta name="description" content="World-class corporate services in Singapore and Hong Kong. FINOVA Group — prototype." />
     <meta name="theme-color" content="#22110c" />
     <meta name="robots" content="noindex, nofollow" />
-    <link rel="icon" href={`${base}/images/finova-logo.png`} type="image/png" />
+    <link rel="icon" href={`${base}/favicon-light.png`} type="image/png" sizes="420x420" />
+    <link rel="icon" href={`${base}/favicon-light.png`} type="image/png" sizes="420x420" media="(prefers-color-scheme: light)" />
+    <link rel="icon" href={`${base}/favicon-dark.png`} type="image/png" sizes="420x420" media="(prefers-color-scheme: dark)" />
     <link rel="preload" href={fontUrl} as="font" type="font/ttf" crossorigin />
     <link rel="preload" href={`${base}/images/slide-01.webp`} as="image" fetchpriority="high" />
     <title>FINOVA Group — World-Class Corporate Services</title>

@@ -167,7 +167,7 @@ if (hero) {
       whoWeAre: 'Who we are',
       aboutLead: 'Corporate secretarial, accounting, tax, funds and restructuring in Singapore and Hong Kong, from senior people who know your file.',
       aboutBody: 'With more than 15 years of proven track record, serving more than 1,500 clients and a dedicated team of professionals with expertise across different industry sectors, Finova is well-positioned and connected to cater to your specific business needs.',
-      learnMore: 'Learn more', statistics: 'FINOVA in numbers', trackRecord: 'years of track record', clientsServed: 'companies, funds and families served', offices: 'offices: Singapore and Hong Kong', accreditations: 'training accreditations: ICAEW, CA (Singapore), ACCA',
+      learnMore: 'Learn more', statistics: 'FINOVA in numbers', trackRecord: 'years of track record', clientsServed: 'companies, funds and families served', offices: 'offices: Singapore and Hong Kong', accreditations: 'accreditations: ICAEW, CA (Singapore), ACCA',
       valuesProfessionalism: 'Professionalism', valuesPassion: 'Passion', valuesAgility: 'Agility',
       valuesCopy: 'Most businesses end up with four or five providers who never compare notes. Finova was built so one team sees the whole company.',
     },
