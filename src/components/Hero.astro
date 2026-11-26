@@ -1,13 +1,15 @@
 ---
+import Menu from './Menu.astro';
+import RollingText from './RollingText.astro';
+
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const slides = [
-  { name: 'The lounge', alt: 'Amber-lit lounge with warm wood panels and curved velvet seating', file: 'slide-01.webp', width: 1179, height: 1569, position: '50% 74.177%' },
-  { name: 'The library', alt: 'A warmly lit library with an armchair and framed artwork', file: 'slide-02.webp', width: 736, height: 1103, position: '50% 50%' },
-  { name: 'The conversation', alt: 'Two professionals in conversation in a softly lit lounge', file: 'slide-03.webp', width: 736, height: 923, position: '50% 50%' },
-  { name: 'The meeting room', alt: 'An elegant meeting room framed by dark timber panels', file: 'slide-04.webp', width: 928, height: 1160, position: '50% 50%' },
+  { name: 'The lounge', alt: 'Amber-lit lounge with warm wood panels and curved velvet seating', file: 'slide-01-upscaled.webp', width: 1672, height: 941, position: '50% 50%' },
+  { name: 'The library', alt: 'A warmly lit library with two lamps and framed artwork', file: 'slide-02-upscaled.webp', width: 1672, height: 941, position: '50% 50%' },
+  { name: 'The conversation', alt: 'A professional in conversation in a softly lit lounge', file: 'slide-03-upscaled.webp', width: 1672, height: 941, position: '50% 50%' },
+  { name: 'The meeting room', alt: 'An elegant meeting room framed by dark timber panels', file: 'slide-04-upscaled.webp', width: 1672, height: 941, position: '50% 50%' },
 ];
 ---
-<main id="main">
   <section class="hero" aria-label="FINOVA Group" aria-roledescription="carousel" tabindex="0" data-carousel data-active="0">
     <svg class="filter-definitions" aria-hidden="true" width="0" height="0">
       <defs>
@@ -29,7 +31,7 @@ const slides = [
 
     <header class="header">
       <div class="header__left">
-        <button class="text-control" data-menu-open aria-haspopup="dialog" aria-controls="site-menu" data-i18n="menu">Menu</button>
+        <button class="text-control menu-trigger" data-menu-open aria-haspopup="dialog" aria-controls="site-menu" aria-expanded="false"><RollingText text="Menu" translation="menu" /></button>
         <div class="language" aria-label="Language">
           <button class="text-control" data-lang="en" aria-pressed="true" aria-label="English">EN</button>
           <span aria-hidden="true"> / </span>
@@ -54,21 +56,11 @@ const slides = [
           <span class="slide-picker__progress" aria-hidden="true"></span>
         </button>
       ))}
-      <button class="playback" data-playback aria-label="Pause slideshow" aria-pressed="false"><span class="playback__icon" aria-hidden="true"></span></button>
     </div>
     <p class="sr-only" role="status" aria-live="polite" aria-atomic="true" data-slide-status></p>
   </section>
-</main>
 
-<dialog class="site-menu" id="site-menu" aria-label="Navigation">
-  <div class="site-menu__header"><span>FINOVA Group</span><button class="text-control" data-menu-close autofocus data-i18n="close">Close</button></div>
-  <nav aria-label="Main navigation">
-    <a href={`${base}/`} data-menu-home data-i18n="home">Home</a>
-    <a href="https://www.finovagroup.com/about-finova" target="_blank" rel="noopener noreferrer" data-i18n="about">Who we are</a>
-    <a href="https://www.finovagroup.com/connect-with-us" target="_blank" rel="noopener noreferrer" data-i18n="contacts">Contacts</a>
-  </nav>
-  <p>Singapore &amp; Hong Kong</p>
-</dialog>
+<Menu />
 
 <script>
   import '../scripts/hero';

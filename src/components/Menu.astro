@@ -1,0 +1,87 @@
+---
+import RollingText from './RollingText.astro';
+import '../styles/menu.css';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const primaryLinks = [
+  { text: 'Services', translation: 'services', path: '#company-stages' },
+  { text: 'About', translation: 'about', path: '#about' },
+  { text: 'Impact', translation: 'impact', path: '/finova-impact' },
+];
+const secondaryLinks = [
+  { text: 'Careers', translation: 'careers', path: '/careers' },
+  { text: 'Insights', translation: 'insights', path: '/insights' },
+  { text: 'Events', translation: 'events', path: '/events' },
+];
+const previews = [
+  { id: 'services', file: 'menu-artwork.webp', width: 736, height: 923 },
+  { id: 'about', file: 'company-card-01.webp', width: 1200, height: 1800 },
+  { id: 'impact', file: 'story-04.webp', width: 640, height: 640 },
+  { id: 'careers', file: 'company-card-04.webp', width: 1400, height: 1750 },
+  { id: 'insights', file: 'company-card-03.webp', width: 735, height: 1132 },
+  { id: 'events', file: 'story-08.webp', width: 640, height: 640 },
+  { id: 'contacts', file: 'finova-values.webp', width: 736, height: 913 },
+  { id: 'linkedin', file: 'story-05.webp', width: 640, height: 640 },
+  { id: 'whatsapp', file: 'story-09.webp', width: 640, height: 640 },
+];
+---
+<dialog class="site-menu" id="site-menu" aria-label="Main navigation" data-state="closed">
+  <div class="site-menu__surface" data-menu-surface>
+    <header class="site-menu__header">
+      <div class="site-menu__header-left" data-menu-header-item>
+        <button class="text-control site-menu__close" data-menu-close autofocus aria-label="Close menu">
+          <RollingText text="Close" translation="close" />
+        </button>
+        <div class="language" aria-label="Language">
+          <button class="text-control" data-lang="en" aria-pressed="true" aria-label="English">EN</button>
+          <span aria-hidden="true"> / </span>
+          <button class="text-control" data-lang="zh" aria-pressed="false" aria-label="中文">CN</button>
+        </div>
+      </div>
+      <a class="site-menu__home" href={`${base}/`} aria-label="FINOVA Group home" data-menu-home data-menu-header-item>
+        <span class="site-menu__mark" style={`--logo:url('${base}/images/finova-logo.png')`} aria-hidden="true"></span>
+      </a>
+      <a class="text-control" href="https://www.finovagroup.com/connect-with-us" target="_blank" rel="noopener noreferrer" data-menu-link data-menu-preview="contacts" data-menu-header-item>
+        <RollingText text="Contacts" translation="contacts" />
+      </a>
+    </header>
+
+    <nav class="site-menu__navigation" aria-label="Main navigation">
+      <div class="site-menu__primary">
+        {primaryLinks.map(link => (
+          <a class="site-menu__link site-menu__link--primary" href={link.path.startsWith('#') ? link.path : `https://www.finovagroup.com${link.path}`} target={link.path.startsWith('#') ? undefined : '_blank'} rel={link.path.startsWith('#') ? undefined : 'noopener noreferrer'} data-menu-link data-menu-preview={link.translation}>
+            <span class="site-menu__line-mask"><span class="site-menu__line" data-menu-primary-reveal>
+              <RollingText text={link.text} translation={link.translation} />
+            </span></span>
+          </a>
+        ))}
+      </div>
+      <div class="site-menu__secondary">
+        {secondaryLinks.map(link => (
+          <a class="site-menu__link site-menu__link--secondary" href={`https://www.finovagroup.com${link.path}`} target="_blank" rel="noopener noreferrer" data-menu-link data-menu-preview={link.translation}>
+            <span class="site-menu__line-mask"><span class="site-menu__line" data-menu-secondary-reveal>
+              <RollingText text={link.text} translation={link.translation} />
+            </span></span>
+          </a>
+        ))}
+      </div>
+    </nav>
+
+    <figure class="site-menu__visual" data-menu-visual aria-hidden="true">
+      {previews.map(preview => <img src={`${base}/images/${preview.file}`} alt="" width={preview.width} height={preview.height} loading="eager" decoding="async" fetchpriority="low" data-menu-image={preview.id} />)}
+    </figure>
+
+    <footer class="site-menu__socials" aria-label="Social links">
+      <a href="https://www.linkedin.com/company/finovagroup-singapore/" target="_blank" rel="noopener noreferrer" data-menu-link data-menu-preview="linkedin">
+        <span class="site-menu__line-mask"><span class="site-menu__line" data-menu-social-reveal>LinkedIn</span></span>
+      </a>
+      <a href="https://wa.me/6580254497" target="_blank" rel="noopener noreferrer" data-menu-link data-menu-preview="whatsapp">
+        <span class="site-menu__line-mask"><span class="site-menu__line" data-menu-social-reveal>WhatsApp</span></span>
+      </a>
+    </footer>
+  </div>
+</dialog>
+
+<script>
+  import '../scripts/menu';
+</script>

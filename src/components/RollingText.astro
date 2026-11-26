@@ -1,0 +1,11 @@
+---
+interface Props {
+  text: string;
+  translation?: string;
+}
+const { text, translation } = Astro.props;
+---
+<span class="rolling-text" data-roll>
+  <span class="rolling-text__original" data-i18n={translation}>{text}</span>
+  <span class="rolling-text__copy" data-i18n={translation} aria-hidden="true">{text}</span>
+</span>

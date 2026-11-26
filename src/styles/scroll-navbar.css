@@ -1,0 +1,19 @@
+.scroll-navbar {
+  --u: calc(100vw / 1440);
+  position: fixed;
+  z-index: 5;
+  inset: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: calc(52 * var(--u));
+  padding: calc(16 * var(--u)) calc(20 * var(--u));
+  color: #220807;
+  background: #fdf5e3;
+  transform: translateY(-110%);
+  opacity: 0;
+  visibility: hidden;
+  will-change: transform, opacity;
+}
+.scroll-navbar__left { display: flex; align-items: baseline; gap: calc(40 * var(--u)); }
+.scroll-navbar__home { position: absolute; left: calc(50% - 12 * var(--u)); top: calc(14 * var(--u)); }

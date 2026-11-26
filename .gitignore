@@ -7,3 +7,4 @@ dist/
 !.env.example
 artifacts/
 design-assets/
+generated_images/
