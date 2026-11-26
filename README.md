@@ -1,17 +1,17 @@
 # FINOVA — Astro prototype
 
-Сайт для перегляду: [stasko24.github.io/FINOVA](https://stasko24.github.io/FINOVA/).
+Live website: [stasko24.github.io/FINOVA](https://stasko24.github.io/FINOVA/).
 
-П’ять секцій [макета FINOVA Exploration](https://www.figma.com/design/l2ma2RrGkZDpbYNZgbipX0/FINOVA-Exploration?node-id=11-3): hero, «Хто ми?», статистика, “Where is your company today?” та фінальна секція цінностей Finova.
+Five sections from the [FINOVA Exploration design](https://www.figma.com/design/l2ma2RrGkZDpbYNZgbipX0/FINOVA-Exploration?node-id=11-3): the hero, Who we are, statistics, “Where is your company today?”, and the final Finova values section.
 
-## Розробка
+## Development
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Локальна адреса: `http://127.0.0.1:4321/FINOVA/`.
+Local development URL: `http://127.0.0.1:4321/FINOVA/`.
 
 ```sh
 npm run check
@@ -19,106 +19,109 @@ npm run build
 npm run preview
 ```
 
-## Екран і слайдер
+## Hero and slideshow
 
-- Astro 7, TypeScript, GSAP 3.15.
-- Оригінальна геометрія: 1440 × 820, заголовок 64 px, текст локації 32 px, відступ 20 px, логотип 109.91 × 72 px.
-- Єдина десктопна флюїдна композиція через container units: розміри елементів пропорційно масштабуються від ширини макета 1440 px. Hero займає всю висоту вікна (`100dvh` із fallback `100vh`).
-- Без окремих мобільних, планшетних або широкоформатних адаптацій, брейкпойнтів і верхнього обмеження ширини.
-- Чотири оригінальні фото Figma, шрифт PP Neue Montreal Regular, оригінальний логотип FINOVA (його силует збігається з макетом; колір задано CSS-маскою).
-- Слайди змінюються через 5.5 секунди, перехід триває 1.4 секунди. GSAP анімує перехресне розчинення, спрямоване SVG-розмиття та делікатний рух зображення.
-- Вибір через прев’ю, клавіші ←/→/Home/End та свайпи. Пауза при клавіатурному фокусі, наведенні на прев’ю, прихованій вкладці або відкритому меню.
-- Рамка активного прев’ю плавно з’являється та зникає за 0.5 секунди, одночасно з початком переходу слайда. Кнопки програвання/паузи немає. `prefers-reduced-motion` вимикає автопрогравання й blur.
-- Menu відкриває повноекранне меню за окремим макетом; Contacts веде на офіційну сторінку контактів; EN/CN синхронно перемикає мову сторінки й меню. Автопрогравання hero зупиняється, коли він повністю накритий другою секцією або поза вікном.
+- Astro 7, TypeScript, and GSAP 3.15.
+- Reference dimensions: 1440 × 820, a 64 px heading, 32 px location text, 20 px edge spacing, and a 109.91 × 72 px logo.
+- One fluid desktop composition using container units: elements scale proportionally to the 1440 px design width. The hero fills the viewport height with `100dvh` and a `100vh` fallback.
+- No separate mobile, tablet, or ultrawide layouts, breakpoints, or maximum width.
+- Four photos based on the original Figma imagery, PP Neue Montreal Regular, and the original FINOVA logo. The logo silhouette matches the design; a CSS mask controls its color.
+- Slides advance every 5.5 seconds, with a 1.4-second transition. GSAP combines a crossfade, directional SVG blur, and subtle image movement.
+- Navigation through thumbnails, the ←/→/Home/End keys, and swipes. Playback pauses on keyboard focus, thumbnail hover, a hidden browser tab, or an open menu.
+- The active thumbnail border fades in and out over 0.5 seconds, starting with the slide transition. There is no play/pause button. `prefers-reduced-motion` disables autoplay and blur.
+- Menu opens the full-screen navigation from its separate design. Contacts opens the official contact page. EN/CN switches the page and menu language together. Hero autoplay also pauses when the second section fully covers it or it leaves the viewport.
 
-У `src/scripts/hero.ts` можна змінити інтервал і параметри переходу. Фото й порядок слайдів — у `src/components/Hero.astro`.
+The interval and transition settings are in `src/scripts/hero.ts`. Image selection and slide order are in `src/components/Hero.astro`.
 
-Перший екран і його прев’ю використовують чотири нові кадри з чату «Апскейл зображення 4K»: приглушену версію lounge (`exec-49c967b6…`), library (`exec-2b07425a…`), conversation (`exec-c0e802b8…`) та meeting room (`exec-76268065…`). Реальна роздільність отриманих PNG — 1672 × 941 px. Оптимізовані WebP збережені як `slide-01-upscaled.webp` — `slide-04-upscaled.webp`; оригінали в `generated_images/` залишені без змін. Для горизонтального кадру прибрано старе спеціальне кадрування першого прев’ю.
+The hero and its thumbnails use four enhanced images from the image upscaling chat: the muted lounge version (`exec-49c967b6…`), library (`exec-2b07425a…`), conversation (`exec-c0e802b8…`), and meeting room (`exec-76268065…`). The actual PNG resolution is 1672 × 941 px. Optimized WebP files are named `slide-01-upscaled.webp` through `slide-04-upscaled.webp`; the originals in `generated_images/` remain unchanged. The first thumbnail uses the landscape image without the special crop previously needed for the portrait source.
 
-## Меню
+## Menu
 
-Композиція відтворює [макет меню FINOVA](https://www.figma.com/design/l2ma2RrGkZDpbYNZgbipX0/FINOVA-Exploration?node-id=12-148): фон `#220807`, знак FINOVA по центру, основні посилання 72 px, додаткові 20 px, фото 808 × 587 px на позиції 612/213 при ширині 1440 px. Висота меню дорівнює висоті вікна; розміри елементів масштабуються разом із десктопною версткою.
+The composition follows the [FINOVA menu design](https://www.figma.com/design/l2ma2RrGkZDpbYNZgbipX0/FINOVA-Exploration?node-id=12-148): a `#220807` background, centered FINOVA mark, 72 px primary links, 20 px secondary links, and an 808 × 587 px image positioned at x=612/y=213 in the 1440 × 820 reference frame. The menu fills the viewport height, and its elements scale with the desktop layout.
 
-GSAP-анімації орієнтуються на [OH Architecture](https://www.oharchitecture.com.au/): панель розкривається згори, посилання послідовно виходять із масок. При відкритті права частина порожня; окреме фото з’являється лише при наведенні або клавіатурному фокусі на посиланні. Дев’ять посилань (основні, додаткові, Contacts і соціальні) мають різні наявні фото. Кадри плавно перетікають один в одного за 0.6 с із делікатним наближенням; після відведення курсора фото згасає за 0.25 с. Повторне відкриття скидає прев’ю.
+The GSAP animations reference [OH Architecture](https://www.oharchitecture.com.au/): the panel reveals from the top, and links appear sequentially through masks. The image area starts empty. An image appears only when a link is hovered or receives keyboard focus. Nine links—the primary and secondary navigation, Contacts, and social links—each use a different existing photo. Images crossfade over 0.6 seconds with a subtle zoom, then fade out over 0.25 seconds when the pointer leaves. Reopening the menu resets the preview.
 
-Menu/Close та посилання прокручують текст при наведенні або фокусі клавіатурою. Закриття програє анімацію у зворотному напрямку; Escape та повернення фокуса підтримуються нативним діалогом. Під час відкритого меню слайдер стоїть на паузі. `prefers-reduced-motion` робить відкриття, закриття та перемикання фото миттєвими.
+Menu/Close and navigation labels roll on hover or keyboard focus. Closing reverses the animation. A native dialog supports Escape and focus restoration. The slideshow pauses while the menu is open. `prefers-reduced-motion` makes opening, closing, and image switching immediate.
 
-About закриває меню та переходить до локальної секції «Хто ми?», Services — до чотирьох карток “Where is your company today?”. Інші посилання ведуть на відповідні офіційні сторінки FINOVA. Реалізація: `src/components/Menu.astro`, `src/scripts/menu.ts`, `src/styles/menu.css`.
+About closes the menu and scrolls to the local Who we are section. Services scrolls to the four “Where is your company today?” cards. Other links open the corresponding official FINOVA pages.
 
-## «Хто ми?» та статистика
+Implementation: `src/components/Menu.astro`, `src/scripts/menu.ts`, and `src/styles/menu.css`.
 
-Оригінальні тексти, дев’ять фотографій і кольори взяті з Figma. При ширині 1440 px: текст «Хто ми?» праворуч починається на x=730, основний текст — 32 px, опис — 16 px, фотографії — 160 × 160 px із проміжками 20 px. Оновлена статистика: числа — 240 px, підписи — 64 px; обидва вирівняні праворуч на x=730 у блоці шириною 710 px. Розміри флюїдні (на 1920 px — 320 / 85.33 px). Кожен показник вертикально центрований з урахуванням фактичної висоти; відстань уздовж дуги враховує найдовший підпис і оновлюється після зміни мови або розміру вікна.
+## Who we are and statistics
 
-Останній підпис скорочено до “accreditations: ICAEW, CA (Singapore), ACCA”, збережено перелік усіх трьох акредитацій. На 1280, 1440 та 1920 px англійські підписи займають максимум два рядки без зменшення шрифту й обрізання тексту.
+The original copy, nine photos, and colors come from Figma. At a viewport width of 1440 px, the Who we are copy starts at x=730, with a 32 px lead, 16 px body text, and 160 × 160 px photos separated by 20 px gaps. Statistics use 240 px numbers and 64 px captions, both aligned right at x=730 in a 710 px block. These sizes scale fluidly to 320 / 85.33 px at a width of 1920 px. Each statistic is centered vertically using its measured height. Spacing along the arc accounts for the longest caption and updates after language or viewport changes.
 
-Друга секція природно напливає поверх sticky hero, який затемнюється пропорційно скролу до 65%. При поверненні нагору затемнення зникає.
+The final caption reads “accreditations: ICAEW, CA (Singapore), ACCA”, preserving all three accreditations. At widths of 1280, 1440, and 1920 px, English captions occupy no more than two lines without reducing the font size or clipping text.
 
-Одна стрічка із 16 карток коротко рухається горизонтально, поки верх другої секції проходить від 60% до 20% висоти вікна. Відразу після цього GSAP ScrollTrigger поступово змінює її кривизну, формуючи коло з радіусом 578 px праворуч. Опорна видима картка залишається поруч зі своїм початковим положенням, тому стрічка згинається без перенесення всієї композиції вбік.
+The second section scrolls over the sticky hero as the hero darkens proportionally to the scroll, reaching 65%. Scrolling back up reverses the shading.
 
-Обертання починається ще під час завершення згинання. Коло з фото й дуга з чотирма показниками рухаються безперервно у протилежних напрямках: кут лінійно залежить від відстані скролу, без зупинок, snap або окремого перемикання між значеннями. Усі етапи працюють у зворотному напрямку.
+A shared ribbon of 16 cards moves horizontally for a short distance while the second section's top edge travels from 60% to 20% of the viewport height. GSAP ScrollTrigger then gradually changes its curvature into a circle with a 578 px radius on the right. A visible anchor card stays near its original position, allowing the ribbon to bend without shifting the entire composition sideways.
 
-Референси руху: [Double circular carousel](https://madewithgsap.com/effects/tutorial040) та [Kononenko Group](https://kononenkogroup.com/). Власна реалізація використовує CSS sticky і одну GSAP timeline; скрол сторінки залишається нативним.
+Rotation begins before the bend finishes. The photo circle and the arc of four statistics move continuously in opposite directions. Their angles depend linearly on scroll distance, with no holds, snapping, or discrete value changes. Every stage works in reverse.
 
-`prefers-reduced-motion` залишає звичайну послідовність секцій, горизонтальну фотострічку й сітку з усіма показниками. Та сама композиція доступна без JavaScript. Фото WebP сумарно займають приблизно 325 КБ і завантажуються з проєкту.
+Motion references: [Double circular carousel](https://madewithgsap.com/effects/tutorial040) and [Kononenko Group](https://kononenkogroup.com/). The implementation uses CSS sticky and one GSAP timeline while preserving native page scrolling.
 
-Перед завершенням сцени коло плавно виходить за правий край на 760 одиниць макета. Цей вихід починається наприкінці обертання й завершується до того, як sticky-сцена починає рухатися вгору. Тому край секції не обрізає останнє фото, а наступний заголовок з’являється вже після виходу зображень.
+With `prefers-reduced-motion`, the sections follow normal document flow, with a horizontal photo ribbon and a grid showing all statistics. The same layout is available without JavaScript. The ribbon's WebP images total approximately 325 KB and are served from the project.
 
-Реалізація: `src/components/CompanyStory.astro`, `src/scripts/story.ts`, `src/styles/story.css`. Після досягнення 20% висоти вікна відрізок скролу становить `3450 * var(--u)`: згинання — 900 одиниць, обертання — 2030 одиниць із початком на 820-й одиниці, вихід праворуч — 700 одиниць із початком на 2750-й одиниці. Згладжування ScrollTrigger — 0.25 с.
+Before the scene ends, the circle moves smoothly 760 design units beyond the right edge. This exit starts near the end of the rotation and finishes before the sticky scene begins moving upward. The section edge therefore does not cut off the last photo, and the next heading appears after the images have exited.
 
-## Навбар при скролі вгору
+Implementation: `src/components/CompanyStory.astro`, `src/scripts/story.ts`, and `src/styles/story.css`. After the section reaches 20% of the viewport height, the scroll sequence spans `3450 * var(--u)`: bending takes 900 units; rotation takes 2030 units starting at unit 820; and the rightward exit takes 700 units starting at unit 2750. ScrollTrigger smoothing is 0.25 seconds.
 
-Навбар відповідає [макету Navbar](https://www.figma.com/design/l2ma2RrGkZDpbYNZgbipX0/FINOVA-Exploration?node-id=36-344): висота 52 px при ширині 1440 px, фон `#FDF5E3`, текст `#220807`, меню на x=20/y=16, мови на x≈106, круглий знак 24 × 24 px на x=708/y=14. Розміри флюїдні, як у решті десктопної композиції.
+## Navigation on upward scroll
 
-Після першого екрана скрол угору показує панель за 0.65 с з `power3.out`; скрол униз ховає її за 0.45 с з `power2.inOut`. Малий поріг зміни напрямку прибирає мерехтіння, elastic overscroll не викликає появу. На початковому екрані залишається оригінальна навігація. `prefers-reduced-motion` перемикає стан миттєво.
+The navbar follows the [Navbar design](https://www.figma.com/design/l2ma2RrGkZDpbYNZgbipX0/FINOVA-Exploration?node-id=36-344): 52 px tall at a width of 1440 px, with a `#FDF5E3` background, `#220807` text, Menu at x=20/y=16, language controls at x≈106, and a 24 × 24 px circular mark at x=708/y=14. Dimensions scale with the rest of the desktop composition.
 
-Обидві кнопки Menu відкривають те саме меню з поверненням фокуса до тієї кнопки, з якої його відкрили. EN/CN синхронізуються між hero, меню й навбаром. Фіксований навбар розміщено поза контейнером сторінки, щоб він залишався у верхній частині вікна на всіх секціях.
+After the first screen, scrolling up reveals the panel over 0.65 seconds with `power3.out`. Scrolling down hides it over 0.45 seconds with `power2.inOut`. A small direction-change threshold prevents flicker, and elastic overscroll does not trigger it. The hero retains its original navigation. `prefers-reduced-motion` switches the state immediately.
 
-Реалізація: `src/components/ScrollNavbar.astro`, `src/scripts/scroll-navbar.ts`, `src/styles/scroll-navbar.css`.
+Both Menu buttons open the same menu and restore focus to the button that opened it. EN/CN stays synchronized across the hero, menu, and navbar. The fixed navbar sits outside the page container so it remains at the top of the viewport across all sections.
 
-## “Where is your company today?”
+Implementation: `src/components/ScrollNavbar.astro`, `src/scripts/scroll-navbar.ts`, and `src/styles/scroll-navbar.css`.
 
-Чотири повноекранні картки відповідають Figma: Setting up, Running your company, Funds and family offices, Restructuring or closing. Кольори — `#548DDE`, `#6D170A`, `#DE865E`, `#AD4112`; оригінальні фото оптимізовано у WebP. При ширині 1440 px: зовнішні відступи та проміжок між колонками — 20 px, фото — 690 × 780 px у вікні 1440 × 820, заголовки й номери — 64 px, описи та послуги — 16 px. Тексти та повторений рядок Executive search у другій картці збережено за макетом.
+## Where is your company today?
 
-Анімація орієнтується на [Scrolling sections / tutorial 031](https://madewithgsap.com/effects/tutorial031): наступна картка рухається знизу поверх попередньої. Попередня одночасно зменшується до 88%, відхиляється на −8° та трохи затемнюється. GSAP ScrollTrigger прив’язує перехід до одного екрана нативного скролу, зі згладжуванням 0.3 с; зворотний скрол відновлює попередню картку. CSS sticky утримує картки, а окремі нерухомі маркери зберігають правильні координати при refresh та зміні розміру вікна.
+Four full-screen cards follow Figma: Setting up, Running your company, Funds and family offices, and Restructuring or closing. Their colors are `#548DDE`, `#6D170A`, `#DE865E`, and `#AD4112`. Original photos are optimized as WebP. At a viewport size of 1440 × 820, outer spacing and the column gap are 20 px, photos occupy 690 × 780 px, headings and numbers are 64 px, and descriptions and service links are 16 px. The copy, including the repeated Executive search row in the second card, follows the design.
 
-Повністю накриті картки прибрано з клавіатурної навігації через `inert`. Без JavaScript або з `prefers-reduced-motion` картки йдуть звичайною послідовністю. EN/CN підтримується й у цій секції. Послуги відкривають офіційний каталог FINOVA, посилання Guide — розділ Insights. Прямий локальний перехід: `http://127.0.0.1:4322/FINOVA/#company-stages`.
+The animation references [Scrolling sections / tutorial 031](https://madewithgsap.com/effects/tutorial031): each new card rises over the previous card while the previous card shrinks to 88%, tilts to −8°, and darkens slightly. GSAP ScrollTrigger ties each transition to one viewport of native scrolling, with 0.3-second smoothing. Reverse scrolling restores the previous card. CSS sticky holds the cards, while separate stationary markers preserve their coordinates during refresh and viewport resizing.
 
-Реалізація: `src/components/CompanyStages.astro`, `src/data/company-stages.ts`, `src/scripts/company-stages.ts`, `src/styles/company-stages.css`.
+Fully covered cards are removed from keyboard navigation with `inert`. Without JavaScript or with `prefers-reduced-motion`, cards follow normal document flow. EN/CN also applies to this section. Service links open FINOVA's official service catalog, and Guide links open Insights. Local deep link: `http://127.0.0.1:4322/FINOVA/#company-stages`.
 
-## Фінальна секція
+Implementation: `src/components/CompanyStages.astro`, `src/data/company-stages.ts`, `src/scripts/company-stages.ts`, and `src/styles/company-stages.css`.
 
-Оригінальне фото інтер’єру з Figma, рядок FINOVA / PROFESSIONALISM / PASSION / AGILITY, текст і кнопка Learn more. При ширині 1440 px секція має висоту 1080 px, рядок цінностей стоїть на y=531 px із кроком 355 px; текст займає праву колонку x=730 px, шириною 690 px, розмір шрифту — 32 px. Кнопка має висоту 40 px і нижній відступ 80 px. Усі розміри масштабуються через спільну одиницю `--u`.
+## Final section
 
-Паралакс повторює рух зображення в секції Plan a trip на [Tengile MalaMala](https://tengilemalamala.com/): постійний масштаб 1.12, вертикальний зсув від −6% до +6% під час проходження секції через вікно. GSAP ScrollTrigger використовує `top bottom` → `bottom top`, лінійний рух і згладжування 0.35 с. Текст скролиться звичайно; секція не закріплюється. Запас зображення перекриває краї на всьому діапазоні руху. Без JavaScript або з `prefers-reduced-motion` фото залишається статичним.
+The final section uses the original interior photo from Figma, the FINOVA / PROFESSIONALISM / PASSION / AGILITY row, a statement, and a Learn more button. At a width of 1440 px, the section is 1080 px tall. The values row sits at y=531 px with 355 px spacing between column starts. The copy occupies a 690 px right column starting at x=730, with a 32 px font. The button is 40 px tall, with 80 px of space below it. All dimensions scale through the shared `--u` unit.
 
-EN/CN підтримує нові тексти. Learn more відкриває офіційну сторінку About Finova. Прямий локальний перехід: `http://127.0.0.1:4322/FINOVA/#finova-values`.
+The parallax follows the image movement in the Plan a trip section on [Tengile MalaMala](https://tengilemalamala.com/): a constant scale of 1.12 and a vertical shift from −6% to +6% as the section passes through the viewport. GSAP ScrollTrigger uses `top bottom` → `bottom top`, linear movement, and 0.35-second smoothing. Text scrolls normally, and the section is not pinned. The enlarged image covers the frame throughout its movement. Without JavaScript or with `prefers-reduced-motion`, the image stays static.
 
-Реалізація: `src/components/FinovaValues.astro`, `src/scripts/finova-values.ts`, `src/styles/finova-values.css`. Оригінал 736 × 913 px оптимізовано у WebP без збільшення роздільності.
+EN/CN supports the section's copy. Learn more opens the official About Finova page. Local deep link: `http://127.0.0.1:4322/FINOVA/#finova-values`.
+
+Implementation: `src/components/FinovaValues.astro`, `src/scripts/finova-values.ts`, and `src/styles/finova-values.css`. The 736 × 913 px original is optimized as WebP without increasing its resolution.
 
 ## Favicon
 
-Використано знак зі [світлого та темного варіантів у Figma](https://www.figma.com/design/l2ma2RrGkZDpbYNZgbipX0/FINOVA-Exploration?node-id=43-354): `#220807` для світлої теми й `#FDF5E3` для темної, на прозорому фоні. Файли `public/favicon-light.png` і `public/favicon-dark.png` підключені в `Layout.astro` через `prefers-color-scheme`; світлий варіант також є fallback. PNG мають розмір 420 × 420 px зі збереженням пропорцій оригінальних квадратних фреймів.
+The favicon uses the mark from the [light and dark Figma variants](https://www.figma.com/design/l2ma2RrGkZDpbYNZgbipX0/FINOVA-Exploration?node-id=43-354): `#220807` for the light theme and `#FDF5E3` for the dark theme, on a transparent background. `public/favicon-light.png` and `public/favicon-dark.png` are linked in `Layout.astro` using `prefers-color-scheme`; the light version is also the fallback. Both PNGs are 420 × 420 px and preserve the proportions of the original square frames.
 
 ## GitHub Pages
 
-Цільова конфігурація репозиторію: `STASKO24/FINOVA`. Конфігурація `site` / `base` — у `astro.config.mjs`.
+Repository: `STASKO24/FINOVA`. The `site` and `base` settings are in `astro.config.mjs`.
 
-Workflow `.github/workflows/deploy.yml` перевіряє TypeScript, збирає Astro та публікує `dist` при кожному push у `main`. Джерело Pages: **GitHub Actions**.
+The workflow in `.github/workflows/deploy.yml` checks TypeScript, builds Astro, and publishes `dist` on every push to `main`. The Pages source is **GitHub Actions**.
 
-Прототип містить п’ять секцій; індексацію пошуковими системами вимкнено.
+The prototype contains five sections. Search engine indexing is disabled.
 
-## Перевірено
+## Validation
 
-- `npm run check`: 0 помилок, попереджень або підказок.
-- Production build Astro успішний.
-- 1440 × 820: точні позиції hero, заголовка, логотипа й прев’ю.
-- Десктопна композиція пропорційно масштабується за шириною вікна без обмеження 1600 px.
-- Автозміна, ручний вибір, черга швидких кліків, клавіатурні стрілки, пауза, меню, EN/CN.
-- Всі зображення завантажуються локально; у коді немає тимчасових URL Figma.
-- Горизонтальна стрічка, проміжна дуга, коло й зворотний скрол перевірені в production preview при 1440 × 820; флюїдний масштаб — при 1920 × 1080, без горизонтального переповнення.
-- Усі три накладання чотирьох карток, зворотний скрол, точні слоти фото 690 × 780 px, масштаб на 1920 × 1080, Services у меню, EN/CN та прямий перехід до нової секції перевірені в браузері. Фото й іконки завантажуються, помилок консолі немає.
-- Вихід кола перевірено на 1440 × 820 та 1920 × 1080: до появи наступного заголовка всі фото вже за правим краєм, горизонтального переповнення немає. Навбар з’являється при скролі вгору, ховається вниз і біля hero; обидва відкривачі меню, Escape, повернення фокуса та синхронізація EN/CN працюють.
-- Фінальна секція перевірена на 1440 × 820 та 1920 × 1080: геометрія й переноси рядків відповідають макету, фото рухається без стрибків у двох напрямках і весь час перекриває краї. EN/CN і пряме посилання працюють, зображення завантажується, горизонтального переповнення та помилок консолі немає.
-- Нові фото hero та всі дев’ять фото меню завантажуються. Меню починає без зображення, наведення змінює кадр, відведення ховає його; вісім основних/соціальних посилань перевірені клавіатурою, повторне відкриття скидає прев’ю. Статистика має 240/64 px на 1440 px і 320/85.33 px на 1920 px, спільний правий край для чисел і підписів, без накладання на коло. Найдовші англійські підписи та перемикання EN/CN перевірені; помилок консолі немає.
+- `npm run check`: 0 errors, warnings, or hints.
+- Astro production build completes successfully.
+- Hero, heading, logo, and thumbnail positions checked at 1440 × 820.
+- The desktop composition scales proportionally with viewport width, without a 1600 px cap.
+- Autoplay, manual selection, rapid-click queuing, keyboard arrows, pause behavior, menu controls, and EN/CN checked.
+- All images are served locally, with no temporary Figma asset URLs in the code.
+- The horizontal ribbon, intermediate arc, circle, and reverse scrolling checked in the production preview at 1440 × 820. Fluid scaling checked at 1920 × 1080, without horizontal overflow.
+- All three card overlaps, reverse scrolling, 690 × 780 px image slots, scaling at 1920 × 1080, the Services menu link, EN/CN, and direct section navigation checked in the browser. Photos and icons load without console errors.
+- The circle's exit checked at 1440 × 820 and 1920 × 1080: all photos leave through the right edge before the next heading appears, without horizontal overflow. The navbar appears on upward scroll and hides on downward scroll or near the hero. Both menu triggers, Escape, focus restoration, and EN/CN synchronization work.
+- The final section checked at 1440 × 820 and 1920 × 1080: geometry and line wrapping match the design, and the photo moves continuously in both directions while covering the frame. EN/CN and the deep link work. The image loads without horizontal overflow or console errors.
+- All four enhanced hero images and all nine menu images load. The menu starts without an image; hovering switches the image and leaving hides it. Eight navigation and social links checked with the keyboard. Reopening resets the preview.
+- Statistics use 240/64 px at a width of 1440 px and 320/85.33 px at 1920 px. Numbers and captions share a right edge and do not overlap the photo circle. Long English captions and EN/CN switching checked without console errors. English captions stay within two lines at 1280, 1440, and 1920 px.
 
-Оригінали PNG збережено у локальній папці `design-assets/`, виключеній із Git. Сайт використовує оптимізовані WebP.
+Original Figma PNGs are kept in the local `design-assets/` directory, which is excluded from Git. Enhanced source images remain in `generated_images/`, also excluded from Git. The website uses optimized WebP assets.
