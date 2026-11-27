@@ -11,7 +11,7 @@ main { position: relative; }
 .action-link--split .action-link__label, .action-link--split .action-link__icon { height: calc(40 * var(--u)); display: grid; place-items: center; background: rgb(34 8 7 / 8%); transition: background-color .35s ease; }
 .action-link--split .action-link__label { min-width: calc(var(--label-width, 111) * var(--u)); padding: 0 calc(16 * var(--u)); }
 .action-link--split .action-link__icon { width: calc(40 * var(--u)); }
-.action-link--split .action-link__icon--leading { top: 0; transform: scale(0); }
+.action-link--split .action-link__icon--leading { top: 0; transform: scale(0); transform-origin: left center; }
 .action-link--split.action-link--paper .action-link__label, .action-link--split.action-link--paper .action-link__icon { background: #fdf5e3; }
 .action-link--split:is(:hover, :focus-visible) .action-link__label, .action-link--split:is(:hover, :focus-visible) .action-link__icon { background: #e3d6c4; }
 .action-link__icon > span { display: block; width: calc(16 * var(--u)); height: calc(16 * var(--u)); background: currentColor; mask: var(--arrow) center / contain no-repeat; }

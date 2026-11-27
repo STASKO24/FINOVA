@@ -18,8 +18,8 @@ document.querySelectorAll<HTMLAnchorElement>('.action-link').forEach(link => {
   if (link.classList.contains('action-link--split')) {
     animation
       .fromTo(trailing, { scale: 1 }, { scale: 0, duration: .22, ease: 'power2.in', immediateRender: false }, 0)
-      .fromTo(label, { '--action-label-progress': 0 }, { '--action-label-progress': 1, duration: .56, ease: 'power3.inOut', immediateRender: false }, .12)
-      .fromTo(leading, { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: .46, ease: 'power3.out', immediateRender: false }, .22);
+      .fromTo(label, { '--action-label-progress': 0 }, { '--action-label-progress': 1, duration: .46, ease: 'power3.inOut', immediateRender: false }, .22)
+      .fromTo(leading, { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: .46, ease: 'power3.inOut', immediateRender: false }, .22);
   } else {
     animation
       .fromTo(trailing.firstElementChild, { xPercent: 0, autoAlpha: 1 }, { xPercent: 150, autoAlpha: 0, duration: .2, ease: 'power2.in', immediateRender: false }, 0)
