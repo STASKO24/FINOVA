@@ -6,41 +6,43 @@ import ActionLink from './ActionLink.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <section class="company-stages" id="company-stages" aria-labelledby="company-stages-heading" data-company-stages>
-  <header class="company-stages__intro">
-    <h2 class="company-stages__heading" id="company-stages-heading" tabindex="-1" data-i18n="stagesHeading">Where is your company today?</h2>
-    <ActionLink href="#contact" label="Contact us" translation="contactUs" variant="text" />
-  </header>
-  <div class="company-stages__stack" data-stages-stack>
-    {companyStages.map((stage, index) => (
-      <span class="company-stages__marker" style={`--card-index:${index}`} aria-hidden="true" data-stage-marker={index}></span>
-      <article class="company-stage" style={`--card-index:${index};--card-color:${stage.color}`} aria-labelledby={`company-stage-title-${index}`} data-stage-card>
-        <div class="company-stage__surface" data-stage-surface>
-          <div class="company-stage__copy">
-            <div class="company-stage__intro">
-              <span class="company-stage__number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-              <h3 class="company-stage__title" id={`company-stage-title-${index}`} data-i18n={`stageTitle${index}`}>{stage.title.en}</h3>
-              <p class="company-stage__description" data-i18n={`stageDescription${index}`}>{stage.description.en}</p>
+  <div class="company-stages__scene" data-stages-scene>
+    <header class="company-stages__intro">
+      <h2 class="company-stages__heading" id="company-stages-heading" tabindex="-1" data-i18n="stagesHeading">Where is your company today?</h2>
+      <ActionLink href="#contact" label="Contact us" translation="contactUs" variant="text" />
+    </header>
+    <div class="company-stages__stack" data-stages-stack>
+      {companyStages.map((stage, index) => (
+        <article class="company-stage" style={`--card-index:${index};--card-color:${stage.color}`} aria-labelledby={`company-stage-title-${index}`} data-stage-card>
+          <div class="company-stage__surface">
+            <div class="company-stage__copy" data-stage-copy-mask>
+              <div class="company-stage__content">
+                <div class="company-stage__intro">
+                  <span class="company-stage__number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                  <h3 class="company-stage__title" id={`company-stage-title-${index}`} data-i18n={`stageTitle${index}`}>{stage.title.en}</h3>
+                  <p class="company-stage__description" data-i18n={`stageDescription${index}`}>{stage.description.en}</p>
+                </div>
+                <div class="company-stage__includes">
+                  <p class="company-stage__label" data-i18n="stagesIncludes">Includes</p>
+                  <ul class="company-stage__services">
+                    {stage.services.map((service, serviceIndex) => (
+                      <li><a class="company-stage__service" href="https://www.finovagroup.com/our-services" target="_blank" rel="noopener noreferrer"><span data-i18n={`stageService${index}_${serviceIndex}`}>{service.en}</span></a></li>
+                    ))}
+                    <li><a class="company-stage__service company-stage__guide" href="https://www.finovagroup.com/insights" target="_blank" rel="noopener noreferrer">
+                      <span data-i18n={`stageGuide${index}`}>{stage.guide.en}</span>
+                      <img class="company-stage__arrow" src={`${base}/images/arrow-forward.svg`} width="16" height="16" alt="" aria-hidden="true" />
+                    </a></li>
+                  </ul>
+                </div>
+              </div>
             </div>
-            <div class="company-stage__includes">
-              <p class="company-stage__label" data-i18n="stagesIncludes">Includes</p>
-              <ul class="company-stage__services">
-                {stage.services.map((service, serviceIndex) => (
-                  <li><a class="company-stage__service" href="https://www.finovagroup.com/our-services" target="_blank" rel="noopener noreferrer"><span data-i18n={`stageService${index}_${serviceIndex}`}>{service.en}</span></a></li>
-                ))}
-                <li><a class="company-stage__service company-stage__guide" href="https://www.finovagroup.com/insights" target="_blank" rel="noopener noreferrer">
-                  <span data-i18n={`stageGuide${index}`}>{stage.guide.en}</span>
-                  <img class="company-stage__arrow" src={`${base}/images/arrow-forward.svg`} width="16" height="16" alt="" aria-hidden="true" />
-                </a></li>
-              </ul>
-            </div>
+            <figure class="company-stage__visual" data-stage-image-mask>
+              <img src={`${base}/images/${stage.image}`} alt={stage.alt} width={stage.width} height={stage.height} loading="lazy" decoding="async" />
+            </figure>
           </div>
-          <figure class="company-stage__visual">
-            <img src={`${base}/images/${stage.image}`} alt={stage.alt} width={stage.width} height={stage.height} loading="lazy" decoding="async" />
-          </figure>
-          <div class="company-stage__shade" aria-hidden="true" data-stage-shade></div>
-        </div>
-      </article>
-    ))}
+        </article>
+      ))}
+    </div>
   </div>
 </section>
 
