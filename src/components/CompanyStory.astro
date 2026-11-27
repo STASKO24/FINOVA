@@ -3,6 +3,7 @@ import ActionLink from './ActionLink.astro';
 import '../styles/story.css';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const photos = Array.from({ length: 9 }, (_, i) => `${base}/images/story-${String(i + 1).padStart(2, '0')}.webp`);
+const ribbonPhotos = [...photos, ...photos];
 const statistics = [
   { value: '1,500+', label: 'companies, funds and families served', translation: 'clientsServed' },
   { value: '2', label: 'offices: Singapore and Hong Kong', translation: 'offices' },
@@ -24,7 +25,7 @@ const statistics = [
     ))}
   </dl>
   <div class="company-ribbon" aria-hidden="true" data-story-ribbon>
-    {photos.map(src => <img src={src} alt="" width="640" height="640" loading="eager" decoding="async" fetchpriority="low" draggable="false" />)}
+    {ribbonPhotos.map(src => <img src={src} alt="" width="640" height="640" loading="eager" decoding="async" fetchpriority="low" draggable="false" />)}
   </div>
 </section>
 <script>import '../scripts/story';</script>

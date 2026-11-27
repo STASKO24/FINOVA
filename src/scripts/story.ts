@@ -14,7 +14,20 @@ if (story && hero) {
       hero.dispatchEvent(new Event('finova:coverchange'));
     };
     const shade = gsap.to(hero, { '--hero-shade': .65, ease: 'none', scrollTrigger: { trigger: story, start: 'top bottom', end: 'top top', scrub: true, onUpdate: self => covered(self.progress >= 1), onRefresh: self => covered(self.progress >= 1) } });
-    const ribbon = gsap.fromTo(story.querySelector('[data-story-ribbon]'), { x: () => 180 * story.clientWidth / 1440 }, { x: 0, ease: 'none', scrollTrigger: { trigger: story, start: 'top 80%', end: 'top 20%', scrub: .35, invalidateOnRefresh: true } });
+    const ribbonElement = story.querySelector<HTMLElement>('[data-story-ribbon]')!;
+    // Follow the entire visible passage of the photos, including reverse scroll.
+    // A second copy keeps both viewport edges filled throughout the movement.
+    const ribbon = gsap.fromTo(ribbonElement, { x: 0 }, {
+      x: () => -.5 * story.clientWidth,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: ribbonElement,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: .4,
+        invalidateOnRefresh: true,
+      },
+    });
     const observer = new ResizeObserver(() => ScrollTrigger.refresh());
     observer.observe(story);
     void document.fonts.ready.then(() => ScrollTrigger.refresh());

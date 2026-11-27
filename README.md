@@ -39,9 +39,9 @@ PP Neue Montreal Regular, local photos, flag exports, and the FINOVA marks match
 ## Interactions
 
 - The hero advances every 5.5 seconds using a 1.4-second GSAP blur transition. Thumbnails, arrow keys, Home/End, and swipes also select slides. The active border fades smoothly. Autoplay pauses on thumbnail hover, keyboard focus, an open menu, a hidden tab, or a covered hero.
-- The second section scrolls over the sticky hero while the hero darkens. The photo ribbon moves a short distance as the section enters; statistics stay in the new static list layout.
+- The second section scrolls over the sticky hero while the hero darkens. The photo ribbon moves left by half the desktop width throughout its visible passage, with 0.4-second scroll smoothing. A repeated set of photos keeps both edges filled; reverse scrolling reverses the movement. Statistics stay in the static list layout.
 - Company-stage cards overlap on scroll while the preceding card shrinks, tilts, and darkens. Covered cards become inert.
-- The values and contact photographs use scroll-linked vertical parallax.
+- The values and contact photographs use scroll-linked vertical parallax. The contact image before the footer has a stronger movement from −18% to +18%, with a constant 1.4 crop that covers the frame throughout the movement.
 - The services accordion animates height and opacity. Only one service is expanded at a time; the first is open initially.
 - Hovering or focusing an office changes its active color. Hong Kong is active initially.
 - Team tabs support click and arrow-key navigation. Hover or keyboard focus expands a portrait. The portrait track supports native horizontal scrolling and dragging.

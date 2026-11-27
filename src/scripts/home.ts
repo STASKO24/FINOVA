@@ -109,7 +109,19 @@ const contact = document.querySelector<HTMLElement>('[data-contact-section]');
 const motion = gsap.matchMedia();
 motion.add('(prefers-reduced-motion: no-preference)', () => {
   if (!contact) return;
-  gsap.fromTo(contact.querySelector('[data-contact-image]'), { yPercent: -6, scale: 1.12 }, { yPercent: 6, scale: 1.12, ease: 'none', scrollTrigger: { trigger: contact, start: 'top bottom', end: 'bottom top', scrub: .35, invalidateOnRefresh: true } });
+  // Three times the previous travel; the larger crop covers both ends of the frame.
+  gsap.fromTo(contact.querySelector('[data-contact-image]'), { yPercent: -18, scale: 1.4 }, {
+    yPercent: 18,
+    scale: 1.4,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: contact,
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: .4,
+      invalidateOnRefresh: true,
+    },
+  });
 });
 void document.fonts.ready.then(() => ScrollTrigger.refresh());
 document.addEventListener('finova:layoutchange', () => ScrollTrigger.refresh());
