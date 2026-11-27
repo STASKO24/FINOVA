@@ -13,6 +13,9 @@ const { href, label, translation, variant = 'split', tone = 'ink', external = fa
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <a class:list={['action-link', `action-link--${variant}`, `action-link--${tone}`, className]} href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined} style={labelWidth ? `--label-width:${labelWidth}` : undefined}>
-  <span class="action-link__label" data-i18n={translation}>{label}</span>
-  <span class="action-link__icon" aria-hidden="true"><span style={`--arrow:url('${base}/images/arrow-forward.svg')`}></span></span>
+  <span class="action-link__label"><span data-i18n={translation}>{label}</span></span>
+  <span class="action-link__icon action-link__icon--trailing" aria-hidden="true"><span style={`--arrow:url('${base}/images/arrow-forward.svg')`}></span></span>
+  <span class="action-link__icon action-link__icon--leading" aria-hidden="true"><span style={`--arrow:url('${base}/images/arrow-forward.svg')`}></span></span>
 </a>
+
+<script>import '../scripts/action-links';</script>

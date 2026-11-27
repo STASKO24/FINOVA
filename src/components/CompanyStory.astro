@@ -20,7 +20,7 @@ const statistics = [
     {statistics.map(statistic => (
       <div class="company-statistics__item" data-story-stat>
         <dt class="company-statistics__label" data-i18n={statistic.translation}>{statistic.label}</dt>
-        <dd class="company-statistics__value">{statistic.value}</dd>
+        <dd class="company-statistics__value"><span aria-hidden="true" data-stat-value={Number(statistic.value.replace(/\D/g, ''))} data-stat-suffix={statistic.value.endsWith('+') ? '+' : ''}>{statistic.value}</span><span class="sr-only">{statistic.value}</span></dd>
       </div>
     ))}
   </dl>
