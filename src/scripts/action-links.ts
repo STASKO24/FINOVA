@@ -16,10 +16,13 @@ document.querySelectorAll<HTMLAnchorElement>('.action-link').forEach(link => {
   let active = false;
 
   if (link.classList.contains('action-link--split')) {
-    animation
-      .fromTo(trailing, { scale: 1 }, { scale: 0, duration: .22, ease: 'power2.in', immediateRender: false }, 0)
-      .fromTo(label, { '--action-label-progress': 0 }, { '--action-label-progress': 1, duration: .46, ease: 'power3.inOut', immediateRender: false }, .22)
-      .fromTo(leading, { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: .46, ease: 'power3.inOut', immediateRender: false }, .22);
+    // One shared progress keeps both full-size tiles and the label in lockstep.
+    animation.fromTo(link, { '--action-primary-progress': 0 }, {
+      '--action-primary-progress': 1,
+      duration: .62,
+      ease: 'power3.inOut',
+      immediateRender: false,
+    }, 0);
   } else {
     animation
       .fromTo(trailing.firstElementChild, { xPercent: 0, autoAlpha: 1 }, { xPercent: 150, autoAlpha: 0, duration: .2, ease: 'power2.in', immediateRender: false }, 0)
