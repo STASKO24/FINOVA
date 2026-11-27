@@ -1,5 +1,6 @@
 import { gsap } from 'gsap';
 import { companyStageTranslations } from '../data/company-stages';
+import { homeTranslations } from '../data/home';
 
 const hero = document.querySelector<HTMLElement>('[data-carousel]');
 
@@ -163,16 +164,18 @@ if (hero) {
   const translations: Record<string, Record<string, string>> = {
     en: {
       ...companyStageTranslations.en,
+      ...homeTranslations.en,
       menu: 'Menu', close: 'Close', contacts: 'Contacts', services: 'Services', about: 'About', impact: 'Impact', careers: 'Careers', insights: 'Insights', events: 'Events', title1: 'World-Class', title2: 'Corporate Services', location1: 'Singapore &', location2: 'Hong Kong',
       whoWeAre: 'Who we are',
       aboutLead: 'Corporate secretarial, accounting, tax, funds and restructuring in Singapore and Hong Kong, from senior people who know your file.',
       aboutBody: 'With more than 15 years of proven track record, serving more than 1,500 clients and a dedicated team of professionals with expertise across different industry sectors, Finova is well-positioned and connected to cater to your specific business needs.',
-      learnMore: 'Learn more', statistics: 'FINOVA in numbers', trackRecord: 'years of track record', clientsServed: 'companies, funds and families served', offices: 'offices: Singapore and Hong Kong', accreditations: 'accreditations: ICAEW, CA (Singapore), ACCA',
+      learnMore: 'Learn more', statistics: 'FINOVA in numbers', trackRecord: 'years of track record', clientsServed: 'companies, funds and families served', offices: 'offices: Singapore and Hong Kong', accreditations: 'training accreditations: ICAEW, CA , ACCA',
       valuesProfessionalism: 'Professionalism', valuesPassion: 'Passion', valuesAgility: 'Agility',
       valuesCopy: 'Most businesses end up with four or five providers who never compare notes. Finova was built so one team sees the whole company.',
     },
     zh: {
       ...companyStageTranslations.zh,
+      ...homeTranslations.zh,
       menu: '菜单', close: '关闭', contacts: '联系我们', services: '服务', about: '关于我们', impact: '社会影响', careers: '职业机会', insights: '洞察', events: '活动', title1: '世界级', title2: '企业服务', location1: '新加坡与', location2: '香港',
       whoWeAre: '关于我们',
       aboutLead: '由熟悉您业务的资深专业人士，为您提供新加坡和香港的公司秘书、会计、税务、基金及重组服务。',
@@ -186,7 +189,11 @@ if (hero) {
     const language = button.dataset.lang!;
     document.documentElement.lang = language === 'zh' ? 'zh-Hans' : 'en';
     document.querySelectorAll<HTMLButtonElement>('[data-lang]').forEach(control => control.setAttribute('aria-pressed', String(control.dataset.lang === language)));
-    document.querySelectorAll<HTMLElement>('[data-i18n]').forEach(element => { element.textContent = translations[language][element.dataset.i18n!]; });
+    document.querySelectorAll<HTMLElement>('[data-i18n]').forEach(element => {
+      const text = translations[language][element.dataset.i18n!];
+      if (text !== undefined) element.textContent = text;
+    });
+    document.dispatchEvent(new Event('finova:layoutchange'));
   }));
 
   if (!reducedMotion.matches) {

@@ -2,7 +2,7 @@ type Text = { en: string; zh: string };
 
 export const companyStages = [
   {
-    color: '#548DDE',
+    color: '#252B39',
     title: { en: 'Setting up', zh: '设立公司' },
     description: {
       en: 'Choosing Singapore, Hong Kong or both, incorporating, and getting your first hires through MOM.',

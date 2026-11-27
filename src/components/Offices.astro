@@ -1,0 +1,17 @@
+---
+import { offices } from '../data/home';
+import ActionLink from './ActionLink.astro';
+import OfficeFlag from './OfficeFlag.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<section class="offices-section home-section" id="offices" aria-labelledby="offices-heading" data-offices>
+  <header class="offices-section__header"><h2 class="section-heading" id="offices-heading" data-i18n="officesHeading">Two cities, one firm</h2><p data-i18n="officesDescription">Set up in Singapore, Hong Kong or both without changing firm or starting over.</p></header>
+  <div class="offices-section__grid">{offices.map((office, i) => (
+    <article class:list={['office-card', { 'is-active': i === 1 }]} aria-labelledby={`office-heading-${i}`} data-office-card>
+      <img class="office-card__image" src={`${base}/images/${office.image}`} alt={office.alt} width="1672" height="941" loading="lazy" decoding="async" />
+      <h3 class="office-card__title" id={`office-heading-${i}`} data-i18n={`officeCity${i}`}>{office.city}</h3><OfficeFlag country={office.flag} />
+      <dl class="office-card__details"><div><dt>A:</dt><dd>{office.address}</dd></div><div><dt>T:</dt><dd><a href={`tel:${office.phone.replaceAll(' ', '')}`}>{office.phone}</a></dd></div></dl>
+      <ActionLink class="office-card__link" href={`#contact-${office.id}`} label={office.label} translation={`officeLink${i}`} />
+    </article>
+  ))}</div>
+</section>

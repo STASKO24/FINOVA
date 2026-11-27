@@ -1,12 +1,14 @@
 ---
 import { companyStages } from '../data/company-stages';
 import '../styles/company-stages.css';
+import ActionLink from './ActionLink.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <section class="company-stages" id="company-stages" aria-labelledby="company-stages-heading" data-company-stages>
   <header class="company-stages__intro">
     <h2 class="company-stages__heading" id="company-stages-heading" tabindex="-1" data-i18n="stagesHeading">Where is your company today?</h2>
+    <ActionLink href="#contact" label="Contact us" translation="contactUs" variant="text" />
   </header>
   <div class="company-stages__stack" data-stages-stack>
     {companyStages.map((stage, index) => (

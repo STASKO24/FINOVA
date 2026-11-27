@@ -1,0 +1,15 @@
+---
+import { guides } from '../data/home';
+import ActionLink from './ActionLink.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<section class="guides-section home-section" id="guides" aria-labelledby="guides-heading">
+  <h2 class="section-heading" id="guides-heading" data-i18n="guidesHeading">Guides for 2026</h2>
+  <div class="guides-section__grid">
+    {guides.map((guide, i) => <a class:list={['guide-card', { 'guide-card--featured': i === 0 }]} href="https://www.finovagroup.com/insights" target="_blank" rel="noopener noreferrer">
+      <div class="guide-card__media"><img src={`${base}/images/${guide.image}`} alt="" width="640" height="640" loading="lazy" decoding="async" /></div>
+      <div class="guide-card__details"><span class="guide-card__type" data-i18n="eventType">Event</span><h3 data-i18n={`guideTitle${i}`}>{guide.title}</h3><div class="guide-card__meta"><span>Marcus Yap &amp; Geraldine Toh</span><span aria-hidden="true"></span><time datetime="2026-11-04">Nov 4, 2026</time></div></div>
+    </a>)}
+    <ActionLink class="guides-section__more" href="https://www.finovagroup.com/insights" label="See more" translation="seeMore" labelWidth={99} external />
+  </div>
+</section>

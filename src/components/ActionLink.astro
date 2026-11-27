@@ -1,0 +1,18 @@
+---
+interface Props {
+  href: string;
+  label: string;
+  translation?: string;
+  variant?: 'split' | 'text';
+  tone?: 'paper' | 'ink';
+  external?: boolean;
+  class?: string;
+  labelWidth?: number;
+}
+const { href, label, translation, variant = 'split', tone = 'ink', external = false, class: className, labelWidth } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<a class:list={['action-link', `action-link--${variant}`, `action-link--${tone}`, className]} href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined} style={labelWidth ? `--label-width:${labelWidth}` : undefined}>
+  <span class="action-link__label" data-i18n={translation}>{label}</span>
+  <span class="action-link__icon" aria-hidden="true"><span style={`--arrow:url('${base}/images/arrow-forward.svg')`}></span></span>
+</a>

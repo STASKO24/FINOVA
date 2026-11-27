@@ -1,0 +1,16 @@
+---
+import { directors, offices } from '../data/home';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<section class="leadership-section home-section" id="leadership" aria-labelledby="leadership-heading" data-leadership>
+  <h2 id="leadership-heading" data-i18n="teamHeading">The directors who lead each practice, in both offices.</h2>
+  <p class="leadership-section__description" data-i18n="teamDescription">With more than 15 years of proven track record, serving more than 1,500 clients</p>
+  <div class="leadership-section__tabs" role="tablist" aria-label="Office team">{offices.map((office, i) => <button id={`team-tab-${office.id}`} role="tab" aria-selected={i === 0} aria-controls={`team-panel-${office.id}`} tabindex={i === 0 ? 0 : -1} data-team-tab={office.id}><img src={`${base}/images/flag-${office.flag}.png`} width="420" height="280" alt="" /><span data-i18n={`officeCity${i}`}>{office.city}</span></button>)}</div>
+  {offices.map((office, officeIndex) => <div class="leadership-section__track" id={`team-panel-${office.id}`} role="tabpanel" aria-labelledby={`team-tab-${office.id}`} hidden={officeIndex !== 0} tabindex="0" aria-label={`${office.city} directors, scroll horizontally to see all`} data-team-track>
+    {directors.filter(d => d.office === office.id).map((director, i) => <article class:list={['director-card', { 'is-active': i === 0 }]} data-director-card tabindex="0">
+      <div class="director-card__image" data-director-image><img src={`${base}/images/director-${director.image}.webp`} alt={director.name} width="900" height="1016" loading="lazy" decoding="async" /></div>
+      <div class="director-card__shade" aria-hidden="true"></div>
+      <div class="director-card__details"><div><h3>{director.name}</h3><p data-i18n={`directorRole${directors.indexOf(director)}`}>{director.role}</p></div><a class="director-card__profile" href="https://www.finovagroup.com/about-finova" target="_blank" rel="noopener noreferrer" aria-label={`Read about ${director.name}`}><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96c0 .84.69 1.52 1.55 1.52h16.9c.86 0 1.55-.68 1.55-1.52V3.52c0-.84-.69-1.52-1.55-1.52ZM7.93 18.75H4.98V9.2h2.95v9.55ZM6.45 7.89a1.71 1.71 0 1 1 0-3.42 1.71 1.71 0 0 1 0 3.42Zm12.3 10.86H15.8V14.1c0-1.11-.02-2.54-1.55-2.54-1.55 0-1.79 1.21-1.79 2.46v4.73H9.51V9.2h2.83v1.31h.04c.39-.74 1.36-1.52 2.79-1.52 2.98 0 3.58 1.96 3.58 4.5v5.26Z"/></svg></a></div>
+    </article>)}
+  </div>)}
+</section>

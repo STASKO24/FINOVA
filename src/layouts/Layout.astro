@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import '../styles/home.css';
 import fontUrl from '../assets/PPNeueMontreal-Regular.ttf?url';
 import ScrollNavbar from '../components/ScrollNavbar.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -16,7 +17,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <link rel="icon" href={`${base}/favicon-light.png`} type="image/png" sizes="420x420" media="(prefers-color-scheme: light)" />
     <link rel="icon" href={`${base}/favicon-dark.png`} type="image/png" sizes="420x420" media="(prefers-color-scheme: dark)" />
     <link rel="preload" href={fontUrl} as="font" type="font/ttf" crossorigin />
-    <link rel="preload" href={`${base}/images/slide-01.webp`} as="image" fetchpriority="high" />
+    <link rel="preload" href={`${base}/images/slide-01-upscaled.webp`} as="image" fetchpriority="high" />
     <title>FINOVA Group — World-Class Corporate Services</title>
   </head>
   <body>

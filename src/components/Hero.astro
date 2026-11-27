@@ -1,6 +1,7 @@
 ---
 import Menu from './Menu.astro';
 import RollingText from './RollingText.astro';
+import ActionLink from './ActionLink.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const slides = [
@@ -41,11 +42,18 @@ const slides = [
       <a class="brand" href={`${base}/`} aria-label="FINOVA Group home" style={`--logo:url('${base}/images/finova-logo.png')`}>
         <img src={`${base}/images/finova-logo.png`} alt="FINOVA Group" width="2134" height="1398" />
       </a>
-      <a class="text-control header__contact" href="https://www.finovagroup.com/connect-with-us" target="_blank" rel="noopener noreferrer" data-i18n="contacts">Contacts</a>
+      <a class="text-control header__contact" href="#contact" data-i18n="contacts">Contacts</a>
     </header>
 
     <div class="hero__content">
-      <h1><span data-i18n="title1">World-Class</span><span data-i18n="title2">Corporate Services</span></h1>
+      <div class="hero__intro">
+        <h1><span data-i18n="title1">World-Class</span><span data-i18n="title2">Corporate Services</span></h1>
+        <p class="hero__description" data-i18n="aboutLead">Corporate secretarial, accounting, tax, funds and restructuring in Singapore and Hong Kong, from senior people who know your file.</p>
+        <div class="hero__actions">
+          <ActionLink href="#contact" label="Book a consultation" translation="bookConsultation" tone="paper" labelWidth={167} />
+          <ActionLink href="#services" label="Explore services" translation="exploreServices" variant="text" tone="paper" />
+        </div>
+      </div>
       <p class="hero__location"><span data-i18n="location1">Singapore &amp;</span><span data-i18n="location2">Hong Kong</span></p>
     </div>
 

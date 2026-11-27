@@ -1,51 +1,30 @@
 ---
+import ActionLink from './ActionLink.astro';
 import '../styles/story.css';
-
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const photos = Array.from({ length: 16 }, (_, i) => `${base}/images/story-${String(i % 9 + 1).padStart(2, '0')}.webp`);
+const photos = Array.from({ length: 9 }, (_, i) => `${base}/images/story-${String(i + 1).padStart(2, '0')}.webp`);
 const statistics = [
-  { value: '15+', label: 'years of track record', translation: 'trackRecord' },
   { value: '1,500+', label: 'companies, funds and families served', translation: 'clientsServed' },
   { value: '2', label: 'offices: Singapore and Hong Kong', translation: 'offices' },
-  { value: '3', label: 'accreditations: ICAEW, CA (Singapore), ACCA', translation: 'accreditations' },
+  { value: '15+', label: 'years of track record', translation: 'trackRecord' },
+  { value: '3', label: 'training accreditations: ICAEW, CA , ACCA', translation: 'accreditations' },
 ];
 ---
-<div class="company-story" id="about" data-company-story>
-  <div class="company-story__stage" data-story-stage>
-    <section class="company-about" aria-labelledby="about-heading" data-story-about>
-      <h2 class="company-about__eyebrow" id="about-heading" tabindex="-1" data-i18n="whoWeAre">Who we are</h2>
-      <div class="company-about__copy">
-        <p class="company-about__lead" data-i18n="aboutLead">Corporate secretarial, accounting, tax, funds and restructuring in Singapore and Hong Kong, from senior people who know your file.</p>
-        <p class="company-about__body" data-i18n="aboutBody">With more than 15 years of proven track record, serving more than 1,500 clients and a dedicated team of professionals with expertise across different industry sectors, Finova is well-positioned and connected to cater to your specific business needs.</p>
-        <a class="company-about__link" href="https://www.finovagroup.com/about-finova" target="_blank" rel="noopener noreferrer">
-          <span class="company-about__link-label" data-i18n="learnMore">Learn more</span>
-          <span class="company-about__link-icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8 4l4 4-4 4" stroke="currentColor" stroke-width="1" /></svg></span>
-        </a>
+<section class="company-story" id="about" aria-labelledby="about-heading" data-company-story>
+  <h2 class="company-about__eyebrow" id="about-heading" tabindex="-1" data-i18n="whoWeAre">Who we are</h2>
+  <p class="company-about__lead" data-i18n="aboutLead">Corporate secretarial, accounting, tax, funds and restructuring in Singapore and Hong Kong, from senior people who know your file.</p>
+  <p class="company-about__body" data-i18n="aboutBody">With more than 15 years of proven track record, serving more than 1,500 clients and a dedicated team of professionals with expertise across different industry sectors, Finova is well-positioned and connected to cater to your specific business needs.</p>
+  <ActionLink class="company-about__link" href="https://www.finovagroup.com/about-finova" label="Learn more" translation="learnMore" labelWidth={111} external />
+  <dl class="company-statistics__list" aria-label="FINOVA in numbers">
+    {statistics.map(statistic => (
+      <div class="company-statistics__item" data-story-stat>
+        <dt class="company-statistics__label" data-i18n={statistic.translation}>{statistic.label}</dt>
+        <dd class="company-statistics__value">{statistic.value}</dd>
       </div>
-    </section>
-
-    <div class="company-ribbon" aria-hidden="true" data-story-ribbon>
-      {photos.map((src, i) => (
-        <div class="company-ribbon__card" style={`--card-index:${i}`} data-story-card>
-          <img src={src} alt="" width="640" height="640" loading="eager" decoding="async" fetchpriority="low" draggable="false" />
-        </div>
-      ))}
-    </div>
-
-    <section class="company-statistics" aria-labelledby="statistics-heading" data-story-statistics>
-      <h2 class="sr-only" id="statistics-heading" data-i18n="statistics">FINOVA in numbers</h2>
-      <dl class="company-statistics__list" data-story-stats>
-        {statistics.map(statistic => (
-          <div class="company-statistics__item" data-story-stat>
-            <dt class="company-statistics__label" data-i18n={statistic.translation}>{statistic.label}</dt>
-            <dd class="company-statistics__value">{statistic.value}</dd>
-          </div>
-        ))}
-      </dl>
-    </section>
+    ))}
+  </dl>
+  <div class="company-ribbon" aria-hidden="true" data-story-ribbon>
+    {photos.map(src => <img src={src} alt="" width="640" height="640" loading="eager" decoding="async" fetchpriority="low" draggable="false" />)}
   </div>
-</div>
-
-<script>
-  import '../scripts/story';
-</script>
+</section>
+<script>import '../scripts/story';</script>

@@ -4,7 +4,7 @@ import '../styles/menu.css';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const primaryLinks = [
-  { text: 'Services', translation: 'services', path: '#company-stages' },
+  { text: 'Services', translation: 'services', path: '#services' },
   { text: 'About', translation: 'about', path: '#about' },
   { text: 'Impact', translation: 'impact', path: '/finova-impact' },
 ];
@@ -41,7 +41,7 @@ const previews = [
       <a class="site-menu__home" href={`${base}/`} aria-label="FINOVA Group home" data-menu-home data-menu-header-item>
         <span class="site-menu__mark" style={`--logo:url('${base}/images/finova-logo.png')`} aria-hidden="true"></span>
       </a>
-      <a class="text-control" href="https://www.finovagroup.com/connect-with-us" target="_blank" rel="noopener noreferrer" data-menu-link data-menu-preview="contacts" data-menu-header-item>
+      <a class="text-control" href="#contact" data-menu-link data-menu-preview="contacts" data-menu-header-item>
         <RollingText text="Contacts" translation="contacts" />
       </a>
     </header>

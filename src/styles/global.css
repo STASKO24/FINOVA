@@ -15,6 +15,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 * { box-sizing: border-box; }
+html { scrollbar-width: none; }
+html::-webkit-scrollbar { display: none; }
 body { margin: 0; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { font: inherit; color: inherit; }
@@ -74,6 +76,10 @@ button { background: none; padding: 0; }
 }
 .brand img { display: block; width: 100%; height: 100%; opacity: 0; }
 .hero__content { position: absolute; inset: auto var(--edge) var(--edge); display: flex; align-items: flex-end; justify-content: space-between; pointer-events: none; }
+.hero__intro { width: calc(572 * var(--u)); }
+.hero__intro h1 { width: calc(548 * var(--u)); }
+.hero__description { margin: calc(24 * var(--u)) 0 0; font-size: calc(20 * var(--u)); line-height: 1.2; }
+.hero__actions { display: flex; align-items: center; gap: calc(24 * var(--u)); margin-top: calc(48 * var(--u)); pointer-events: auto; }
 h1 { margin: 0; font-size: calc(64 * var(--u)); line-height: 1.203125; font-weight: 400; letter-spacing: 0; }
 h1 span, .hero__location span { display: block; }
 .hero__location { margin: 0; font-size: calc(32 * var(--u)); line-height: 1.1875; text-align: right; font-weight: 400; }

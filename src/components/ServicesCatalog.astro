@@ -1,0 +1,25 @@
+---
+import { services } from '../data/home';
+import ActionLink from './ActionLink.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<section class="services-catalog home-section" id="services" aria-labelledby="services-heading" data-service-catalog>
+  <h2 class="section-heading" id="services-heading" tabindex="-1" data-i18n="ourServices">Our services</h2>
+  <div class="services-catalog__list">
+    {services.map((service, i) => (
+      <article class:list={['service-entry', { 'is-open': i === 0 }]} data-service-entry>
+        <h3 class="service-entry__heading"><button class="service-entry__trigger" id={`service-trigger-${i}`} aria-expanded={i === 0} aria-controls={`service-panel-${i}`} data-service-trigger>
+          <span class="service-entry__number" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <span data-i18n={`serviceTitle${i}`}>{service.title}</span>
+          <span class="service-entry__toggle" aria-hidden="true"></span>
+        </button></h3>
+        <div class="service-entry__panel" id={`service-panel-${i}`} role="region" aria-labelledby={`service-trigger-${i}`} inert={i !== 0} data-service-panel>
+          <div class="service-entry__details">
+            <img class="service-entry__image" src={`${base}/images/${service.image}`} alt="" width="640" height="640" loading="lazy" decoding="async" />
+            <div class="service-entry__copy"><p data-i18n={`serviceDescription${i}`}>{service.description}</p><ActionLink href="https://www.finovagroup.com/our-services" label="Learn more" translation="learnMore" labelWidth={111} external /></div>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

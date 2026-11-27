@@ -1,0 +1,14 @@
+---
+import { offices } from '../data/home';
+import ActionLink from './ActionLink.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<section class="contact-section" id="contact" aria-labelledby="contact-heading" data-contact-section>
+  <div class="contact-section__media" aria-hidden="true"><img src={`${base}/images/slide-03-upscaled.webp`} alt="" width="1672" height="941" loading="lazy" decoding="async" data-contact-image /></div>
+  <h2 id="contact-heading" tabindex="-1" data-i18n="contactHeading">Tell us where your company is today</h2>
+  <div class="contact-section__offices">{offices.map((office, i) => <div class="contact-office" id={`contact-${office.id}`}>
+    <h3 data-i18n={`officeCity${i}`}>{office.city}</h3><dl><div><dt>E:</dt><dd><a href={`mailto:${office.email}`}>{office.email}</a></dd></div><div><dt>P:</dt><dd><a href={`tel:${office.phone.replaceAll(' ', '')}`}>{office.phone}</a></dd></div></dl>
+  </div>)}</div>
+  <p class="contact-section__description" data-i18n="contactDescription">A director will review your situation and tell you plainly what it needs.</p>
+  <ActionLink class="contact-section__action" href="mailto:contact@finova.com.sg" label="Book a consultation" translation="bookConsultation" tone="paper" labelWidth={167} />
+</section>

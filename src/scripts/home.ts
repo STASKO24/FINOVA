@@ -1,0 +1,115 @@
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
+
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const entries = Array.from(document.querySelectorAll<HTMLElement>('[data-service-entry]'));
+const setService = (index: number, open: boolean) => {
+  const entry = entries[index];
+  const trigger = entry.querySelector<HTMLButtonElement>('[data-service-trigger]')!;
+  const panel = entry.querySelector<HTMLElement>('[data-service-panel]')!;
+  trigger.setAttribute('aria-expanded', String(open));
+  panel.inert = !open;
+  entry.classList.toggle('is-open', open);
+  gsap.killTweensOf(panel);
+  gsap.to(panel, {
+    height: open ? panel.firstElementChild!.getBoundingClientRect().height : 0,
+    autoAlpha: open ? 1 : 0,
+    duration: reducedMotion.matches ? 0 : .65,
+    ease: 'power3.inOut',
+    onComplete: () => {
+      if (open) gsap.set(panel, { height: 'auto' });
+      ScrollTrigger.refresh();
+      document.dispatchEvent(new Event('finova:layoutchange'));
+    },
+  });
+};
+entries.forEach((entry, index) => {
+  const panel = entry.querySelector<HTMLElement>('[data-service-panel]')!;
+  gsap.set(panel, { height: index === 0 ? 'auto' : 0, autoAlpha: index === 0 ? 1 : 0 });
+  entry.querySelector('[data-service-trigger]')!.addEventListener('click', () => {
+    const open = !entry.classList.contains('is-open');
+    entries.forEach((other, i) => { if (other.classList.contains('is-open') || i === index) setService(i, i === index && open); });
+  });
+});
+document.querySelectorAll<HTMLAnchorElement>('[data-open-service]').forEach(link => link.addEventListener('click', event => {
+  event.preventDefault();
+  const index = Number(link.dataset.openService);
+  entries.forEach((entry, i) => { if (entry.classList.contains('is-open') || i === index) setService(i, i === index); });
+  document.querySelector('#services')?.scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'start' });
+}));
+
+const officeCards = Array.from(document.querySelectorAll<HTMLElement>('[data-office-card]'));
+officeCards.forEach(card => {
+  const activate = () => officeCards.forEach(other => other.classList.toggle('is-active', other === card));
+  card.addEventListener('pointerenter', activate);
+  card.addEventListener('focusin', activate);
+});
+
+const team = document.querySelector<HTMLElement>('[data-leadership]');
+if (team) {
+  const tabs = Array.from(team.querySelectorAll<HTMLButtonElement>('[data-team-tab]'));
+  const activateTab = (tab: HTMLButtonElement, focus = false) => {
+    tabs.forEach(control => {
+      const active = control === tab;
+      control.setAttribute('aria-selected', String(active));
+      control.tabIndex = active ? 0 : -1;
+      const panel = document.getElementById(control.getAttribute('aria-controls')!)!;
+      panel.hidden = !active;
+      if (active) {
+        panel.scrollLeft = 0;
+        gsap.fromTo(panel, { opacity: 0, y: reducedMotion.matches ? 0 : 12 }, { opacity: 1, y: 0, duration: reducedMotion.matches ? 0 : .5, ease: 'power2.out', clearProps: 'opacity,transform', overwrite: true });
+      }
+    });
+    if (focus) tab.focus();
+  };
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => activateTab(tab));
+    tab.addEventListener('keydown', event => {
+      const index = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : event.key === 'ArrowRight' ? (i + 1) % tabs.length : event.key === 'ArrowLeft' ? (i + tabs.length - 1) % tabs.length : -1;
+      if (index < 0) return;
+      event.preventDefault(); activateTab(tabs[index], true);
+    });
+  });
+  team.querySelectorAll<HTMLElement>('[data-team-track]').forEach(track => {
+    const cards = Array.from(track.querySelectorAll<HTMLElement>('[data-director-card]'));
+    cards.forEach(card => {
+      const activate = () => cards.forEach(other => {
+        const active = other === card;
+        if (active === other.classList.contains('is-active')) return;
+        const image = other.querySelector<HTMLElement>('[data-director-image]')!;
+        const current = image.getBoundingClientRect();
+        gsap.set(image, { width: current.width, height: current.height });
+        other.classList.toggle('is-active', active);
+        gsap.to(image, { width: active ? '100%' : '55.238095%', height: active ? '100%' : '55.416667%', duration: reducedMotion.matches ? 0 : .7, ease: 'power3.inOut', overwrite: true });
+      });
+      card.addEventListener('pointerenter', activate);
+      card.addEventListener('focusin', activate);
+    });
+    let drag: { x: number; scroll: number; moved: boolean } | undefined;
+    track.addEventListener('pointerdown', event => {
+      if (event.button !== 0 || (event.target as HTMLElement).closest('a')) return;
+      drag = { x: event.clientX, scroll: track.scrollLeft, moved: false };
+    });
+    track.addEventListener('pointermove', event => {
+      if (!drag) return;
+      const delta = event.clientX - drag.x;
+      if (Math.abs(delta) > 5) { drag.moved = true; track.classList.add('is-dragging'); track.setPointerCapture(event.pointerId); }
+      if (drag.moved) track.scrollLeft = drag.scroll - delta;
+    });
+    const endDrag = () => { drag = undefined; track.classList.remove('is-dragging'); };
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointercancel', endDrag);
+    track.addEventListener('lostpointercapture', endDrag);
+    track.addEventListener('pointerleave', () => { if (!drag?.moved) endDrag(); });
+  });
+}
+
+const contact = document.querySelector<HTMLElement>('[data-contact-section]');
+const motion = gsap.matchMedia();
+motion.add('(prefers-reduced-motion: no-preference)', () => {
+  if (!contact) return;
+  gsap.fromTo(contact.querySelector('[data-contact-image]'), { yPercent: -6, scale: 1.12 }, { yPercent: 6, scale: 1.12, ease: 'none', scrollTrigger: { trigger: contact, start: 'top bottom', end: 'bottom top', scrub: .35, invalidateOnRefresh: true } });
+});
+void document.fonts.ready.then(() => ScrollTrigger.refresh());
+document.addEventListener('finova:layoutchange', () => ScrollTrigger.refresh());
