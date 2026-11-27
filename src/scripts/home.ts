@@ -1,44 +1,10 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import './services';
+import './team-cursor';
 gsap.registerPlugin(ScrollTrigger);
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-const entries = Array.from(document.querySelectorAll<HTMLElement>('[data-service-entry]'));
-const setService = (index: number, open: boolean) => {
-  const entry = entries[index];
-  const trigger = entry.querySelector<HTMLButtonElement>('[data-service-trigger]')!;
-  const panel = entry.querySelector<HTMLElement>('[data-service-panel]')!;
-  trigger.setAttribute('aria-expanded', String(open));
-  panel.inert = !open;
-  entry.classList.toggle('is-open', open);
-  gsap.killTweensOf(panel);
-  gsap.to(panel, {
-    height: open ? panel.firstElementChild!.getBoundingClientRect().height : 0,
-    autoAlpha: open ? 1 : 0,
-    duration: reducedMotion.matches ? 0 : .65,
-    ease: 'power3.inOut',
-    onComplete: () => {
-      if (open) gsap.set(panel, { height: 'auto' });
-      ScrollTrigger.refresh();
-      document.dispatchEvent(new Event('finova:layoutchange'));
-    },
-  });
-};
-entries.forEach((entry, index) => {
-  const panel = entry.querySelector<HTMLElement>('[data-service-panel]')!;
-  gsap.set(panel, { height: index === 0 ? 'auto' : 0, autoAlpha: index === 0 ? 1 : 0 });
-  entry.querySelector('[data-service-trigger]')!.addEventListener('click', () => {
-    const open = !entry.classList.contains('is-open');
-    entries.forEach((other, i) => { if (other.classList.contains('is-open') || i === index) setService(i, i === index && open); });
-  });
-});
-document.querySelectorAll<HTMLAnchorElement>('[data-open-service]').forEach(link => link.addEventListener('click', event => {
-  event.preventDefault();
-  const index = Number(link.dataset.openService);
-  entries.forEach((entry, i) => { if (entry.classList.contains('is-open') || i === index) setService(i, i === index); });
-  document.querySelector('#services')?.scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'start' });
-}));
-
 const officeCards = Array.from(document.querySelectorAll<HTMLElement>('[data-office-card]'));
 officeCards.forEach(card => {
   const activate = () => officeCards.forEach(other => other.classList.toggle('is-active', other === card));

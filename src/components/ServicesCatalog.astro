@@ -15,7 +15,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </button></h3>
         <div class="service-entry__panel" id={`service-panel-${i}`} role="region" aria-labelledby={`service-trigger-${i}`} inert={i !== 0} data-service-panel>
           <div class="service-entry__details">
-            <img class="service-entry__image" src={`${base}/images/${service.image}`} alt="" width="640" height="640" loading="lazy" decoding="async" />
+            <div class="service-entry__media" data-service-media><img class="service-entry__image" src={`${base}/images/${service.image}`} alt="" width="640" height="640" loading="lazy" decoding="async" data-service-image /></div>
             <div class="service-entry__copy"><p data-i18n={`serviceDescription${i}`}>{service.description}</p><ActionLink href="https://www.finovagroup.com/our-services" label="Learn more" translation="learnMore" labelWidth={111} external /></div>
           </div>
         </div>
